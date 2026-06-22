@@ -1,0 +1,163 @@
+{
+  "all" = [
+    {
+      "allow_recreate" = tobool(null)
+      "allow_stopping_for_update" = true
+      "boot_disk" = tolist([
+        {
+          "auto_delete" = true
+          "device_name" = "fhml7c0l6je1bvk5s93e"
+          "disk_id" = "fhml7c0l6je1bvk5s93e"
+          "initialize_params" = tolist([
+            {
+              "block_size" = 4096
+              "description" = ""
+              "image_id" = "fd8gj6e21rcdul81qsv6"
+              "kms_key_id" = ""
+              "name" = ""
+              "size" = 10
+              "snapshot_id" = ""
+              "type" = "network-hdd"
+            },
+          ])
+          "mode" = "READ_WRITE"
+        },
+      ])
+      "created_at" = "2026-06-22T19:25:33Z"
+      "description" = "TODO: description; {{terraform yyy managed}}"
+      "filesystem" = toset([])
+      "folder_id" = "b1gq2ctu6e8d1opq74rg"
+      "fqdn" = "marketing-marketing-web-0.ru-central1.internal"
+      "gpu_cluster_id" = ""
+      "hardware_generation" = tolist([
+        {
+          "generation2_features" = tolist([])
+          "legacy_features" = tolist([
+            {
+              "pci_topology" = "PCI_TOPOLOGY_V2"
+            },
+          ])
+        },
+      ])
+      "hostname" = "marketing-marketing-web-0"
+      "id" = "fhmi172abd0n5cu1g6hg"
+      "labels" = tomap({
+        "owner" = "sharov.o"
+        "project" = "marketing"
+      })
+      "local_disk" = tolist([])
+      "maintenance_grace_period" = ""
+      "maintenance_policy" = tostring(null)
+      "metadata" = tomap({
+        "serial-port-enable" = "1"
+        "user-data" = <<-EOT
+        #cloud-config
+        
+        users:
+          - name: ubuntu
+            groups: sudo
+            shell: /bin/bash
+            sudo: ALL=(ALL) NOPASSWD:ALL
+            ssh_authorized_keys:
+              - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCiLSqYQxUaAMu0951N2BEIvr2gDRWdxUO7035qSM6EysIC2Nr0N7Jj6Spe7bg9KoFeQ/y1cJJI8tZi69G/uCc1IaoiA+uWNUuu5DCFhIbol7FZU9VrznKpoOyxG+bTR1Sg4ALtP4Ovx2vmZigUgnR4TlAeYggF5Xv5HntpAA5F8yYnGS30fK7pvbyAPkLqT/mJ4+62xrHIgRly/yjOfySrEPEp9ZT0mbzpevWTH1oUkAwq8vkFlGcBMXJH77ZWEjhYpQmN2kueatc2LFqXGZ+7tLPMbpWv/WRTPdUK5c8GtkpAN771PvMjSrmfe9q1nnHOTFBa1mIcd4XZOVeesHeBvomDcrVa0eSPcJnxGv41/pawwkAPQyJ5K702WAEPhe2OMDPQ7VABn14DS6Lun2aM6L19I2esTEJgdkoWIXistNnDysALErGYQX8IW0wIrAV6cWDhe5tkWThZL+SP51C3B5XP2xoKGiap/zIlrj5CdpQgtPqYgpGjmrUPXMUu39u6oAPjwkFg2K9j4tmgcVebzrReFNGZbzymE44DZLlbpQC4F0Jfyi7LiyxjBid9ZdARWpj9VaUpOxyn4K5J23VRpLz+fhMj5JnBgiPHeFpQYnq0nErmQPiFOoenM133Bmuv7XWp9Dx/UxjjeC3Bnn+6YPMnHd/BF1Srg2uKFauCwQ== os127@yandex.ru
+        
+        packages:
+          - nginx
+        
+        runcmd:
+          - systemctl enable nginx
+          - systemctl start nginx
+        EOT
+      })
+      "metadata_options" = tolist([
+        {
+          "aws_v1_http_endpoint" = 1
+          "aws_v1_http_token" = 2
+          "gce_http_endpoint" = 1
+          "gce_http_token" = 1
+        },
+      ])
+      "name" = "marketing-marketing-web-0"
+      "network_acceleration_type" = "standard"
+      "network_interface" = tolist([
+        {
+          "dns_record" = tolist([])
+          "index" = 0
+          "ip_address" = "10.0.1.26"
+          "ipv4" = true
+          "ipv6" = false
+          "ipv6_address" = ""
+          "ipv6_dns_record" = tolist([])
+          "mac_address" = "d0:0d:12:09:c4:a5"
+          "nat" = true
+          "nat_dns_record" = tolist([])
+          "nat_ip_address" = "93.77.189.183"
+          "nat_ip_version" = "IPV4"
+          "security_group_ids" = toset(null) /* of string */
+          "subnet_id" = "e9ba5t5v5n1addja24qi"
+        },
+      ])
+      "placement_policy" = tolist([
+        {
+          "host_affinity_rules" = tolist([])
+          "placement_group_id" = ""
+          "placement_group_partition" = 0
+        },
+      ])
+      "platform_id" = "standard-v1"
+      "resources" = tolist([
+        {
+          "core_fraction" = 5
+          "cores" = 2
+          "gpus" = 0
+          "memory" = 1
+        },
+      ])
+      "scheduling_policy" = tolist([
+        {
+          "preemptible" = true
+        },
+      ])
+      "secondary_disk" = toset([])
+      "service_account_id" = ""
+      "status" = "running"
+      "timeouts" = null /* object */
+      "zone" = "ru-central1-a"
+    },
+  ]
+  "external_ip_address" = [
+    "93.77.189.183",
+  ]
+  "fqdn" = [
+    "marketing-marketing-web-0.ru-central1.internal",
+  ]
+  "internal_ip_address" = [
+    "10.0.1.26",
+  ]
+  "labels" = [
+    tomap({
+      "owner" = "sharov.o"
+      "project" = "marketing"
+    }),
+  ]
+  "network_interface" = [
+    tolist([
+      {
+        "dns_record" = tolist([])
+        "index" = 0
+        "ip_address" = "10.0.1.26"
+        "ipv4" = true
+        "ipv6" = false
+        "ipv6_address" = ""
+        "ipv6_dns_record" = tolist([])
+        "mac_address" = "d0:0d:12:09:c4:a5"
+        "nat" = true
+        "nat_dns_record" = tolist([])
+        "nat_ip_address" = "93.77.189.183"
+        "nat_ip_version" = "IPV4"
+        "security_group_ids" = toset(null) /* of string */
+        "subnet_id" = "e9ba5t5v5n1addja24qi"
+      },
+    ]),
+  ]
+}
