@@ -1,23 +1,18 @@
-# Создаём облачную сеть
-resource "yandex_vpc_network" "develop" {
-  name = var.vpc_name
+# 1. Вызываем наш локальный модуль VPC
+module "vpc_dev" {
+  source   = "./vpc"
+  env_name = var.vpc_name
+  zone     = var.default_zone
+  cidr     = var.default_cidr[0]
 }
 
-# Создаём подсеть
-resource "yandex_vpc_subnet" "develop" {
-  name           = var.vpc_name
-  zone           = var.default_zone
-  network_id     = yandex_vpc_network.develop.id
-  v4_cidr_blocks = var.default_cidr
-}
-
-# Remote-модуль для marketing ВМ
+# 2. Remote-модуль для marketing ВМ
 module "marketing_vm" {
   source         = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=main"
   env_name       = "marketing"
-  network_id     = yandex_vpc_network.develop.id
+  network_id     = module.vpc_dev.network_id
   subnet_zones   = [var.default_zone]
-  subnet_ids     = [yandex_vpc_subnet.develop.id]
+  subnet_ids     = [module.vpc_dev.subnet_id]
   instance_name  = "marketing-web"
   instance_count = 1
   image_family   = "ubuntu-2004-lts"
@@ -34,13 +29,13 @@ module "marketing_vm" {
   }
 }
 
-# Remote-модуль для analytics ВМ
+# 3. Remote-модуль для analytics ВМ
 module "analytics_vm" {
   source         = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=main"
   env_name       = "analytics"
-  network_id     = yandex_vpc_network.develop.id
+  network_id     = module.vpc_dev.network_id
   subnet_zones   = [var.default_zone]
-  subnet_ids     = [yandex_vpc_subnet.develop.id]
+  subnet_ids     = [module.vpc_dev.subnet_id]
   instance_name  = "analytics-web"
   instance_count = 1
   image_family   = "ubuntu-2004-lts"
@@ -57,7 +52,7 @@ module "analytics_vm" {
   }
 }
 
-# Передаём cloud-config в ВМ с переменной для SSH-ключа
+# 4. Передаём cloud-config в ВМ
 data "template_file" "cloudinit" {
   template = file("./cloud-init.yml")
   
