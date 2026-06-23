@@ -111,3 +111,51 @@ terraform destroy
 - [Документация модуля VPC](./vpc/README.md)
 
 ---
+
+
+# 🏠 Домашнее задание 5: Использование Terraform в команде - Шаров Олег
+
+## 🎯 Задание 1: Проверка кода линтерами
+
+### Инструменты проверки:
+- ✅ **tflint** — статический анализ Terraform кода
+- ✅ **checkov** — проверка на соответствие best practices и безопасность
+
+### Найденные ошибки tflint (3 типа):
+
+1. **`terraform_module_pinned_source`** — модули используют нефиксированные версии (ссылка на ветку `main`)
+   - Файлы: `main.tf` (строки 11, 34)
+   - Решение: использовать commit hash или tag вместо ветки
+
+2. **`terraform_required_providers`** — отсутствуют ограничения версий для провайдеров
+   - Провайдеры: `yandex`, `template`
+   - Файл: `providers.tf`
+   - Решение: добавить `version = "~> x.x"` в блок `required_providers`
+
+3. **`terraform_unused_declarations`** — объявлены неиспользуемые переменные
+   - Переменные: `vm_web_name`, `vm_db_name`
+   - Файл: `variables.tf` (строки 43, 50)
+   - Решение: удалить неиспользуемые переменные или использовать их
+
+### Найденные ошибки checkov (2 типа):
+
+1. **`CKV_TF_1`** — "Ensure Terraform module sources use a commit hash"
+   - Ресурсы: `marketing_vm`, `analytics_vm`
+   - Файл: `main.tf` (строки 10-30, 33-53)
+   - Решение: использовать commit hash в `source` модуля
+
+2. **`CKV_TF_2`** — "Ensure Terraform module sources use a tag with a version number"
+   - Ресурсы: `marketing_vm`, `analytics_vm`
+   - Файл: `main.tf` (строки 10-30, 33-53)
+   - Решение: использовать tag с версией (например, `?ref=v1.0.0`)
+
+### Команды для проверки:
+```bash
+# Проверка tflint
+tflint
+
+# Проверка checkov
+checkov -f main.tf providers.tf variables.tf outputs.tf
+```
+
+---
