@@ -13,7 +13,7 @@ module "marketing_vm" {
   network_id     = module.vpc_dev.network_id
   subnet_zones   = [var.default_zone]
   subnet_ids     = [module.vpc_dev.subnet_id]
-  instance_name  = "marketing-web"
+  instance_name  = "marketing-web-${terraform.workspace}"
   instance_count = 1
   image_family   = "ubuntu-2004-lts"
   public_ip      = true

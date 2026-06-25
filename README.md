@@ -192,3 +192,24 @@ checkov -d /home/oleg/github/terraform-homework-04/vms --framework terraform
 - ![Скрин](screenshots/task4_lock_error.png) — ошибка блокировки во втором терминале (`Error acquiring the state lock`)
 
 ---
+---
+
+##  Задание 3: Работа с Workspaces (Рабочими пространствами)
+
+### Что сделано:
+- ✅ Созданы workspaces: `stage` и `prod` (помимо стандартного `default`)
+- ✅ Модифицирован код в `main.tf`: добавлено использование `terraform.workspace` в имени ВМ
+- ✅ Протестирована изоляция state между workspaces
+- ✅ Подтверждено, что ресурсы в разных workspace имеют разные имена и не конфликтуют
+
+### Изменения в коде:
+- `main.tf` — изменен параметр `instance_name` в модуле `marketing_vm`:
+  ```hcl
+  instance_name = "marketing-web-${terraform.workspace}"
+  ```
+
+### Скриншоты:
+- ![Скрин](screenshots/task5_workspace_stage.png) — вывод `terraform plan` в workspace `stage` (имя ВМ: `marketing-web-stage`)
+- ![Скрин](screenshots/task5_workspace_prod.png) — вывод `terraform plan` в workspace `prod` (имя ВМ: `marketing-web-prod`)
+
+---
