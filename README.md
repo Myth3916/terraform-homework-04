@@ -171,5 +171,24 @@ checkov -f main.tf providers.tf variables.tf outputs.tf
 checkov -d /home/oleg/github/terraform-homework-04/passwords --framework terraform
 checkov -d /home/oleg/github/terraform-homework-04/vms --framework terraform
 ```
+---
+
+##  Задание 2: Настройка Remote State и блокировок
+
+### Что сделано:
+- ✅ Создан S3 bucket `oleg-sharov-tfstate-2026` в Yandex Cloud для хранения state.
+- ✅ Создан отдельный сервисный аккаунт `terraform-state-sa` (соблюдаем принцип наименьших привилегий).
+- ✅ Выдана роль `storage.editor` сервисному аккаунту на уровне каталога (folder).
+- ✅ Сгенерированы статические ключи доступа (access_key / secret_key).
+- ✅ Настроен S3 backend в `providers.tf` (ключи хранятся в `~/.aws/credentials`, хардкод секретов исключен).
+- ✅ Успешно выполнена миграция локального `terraform.tfstate` в удаленный backend (`terraform init -migrate-state`).
+- ✅ Протестирован механизм блокировок (state lock) при одновременном запуске команд.
+
+### Изменения в коде:
+- `providers.tf` — добавлен блок `backend "s3"` с настройками Yandex Object Storage и флагами `skip_*` для корректной работы с YC.
+
+### Скриншоты:
+- ![Скрин](screenshots/task4_lock_process.png) — процесс работы в первом терминале (удержание блокировки)
+- ![Скрин](screenshots/task4_lock_error.png) — ошибка блокировки во втором терминале (`Error acquiring the state lock`)
 
 ---
