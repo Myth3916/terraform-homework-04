@@ -191,7 +191,20 @@ checkov -d /home/oleg/github/terraform-homework-04/vms --framework terraform
 - ![Скрин](screenshots/task4_lock_process.png) — процесс работы в первом терминале (удержание блокировки)
 - ![Скрин](screenshots/task4_lock_error.png) — ошибка блокировки во втором терминале (`Error acquiring the state lock`)
 
----
+### Тестирование блокировок с terraform console:
+
+1. В первом терминале запущен `terraform apply` (ожидает подтверждения):
+   ![Скрин](screenshots/task2_console_lock.png)
+
+2. Во втором терминале при попытке `terraform plan` получена ошибка блокировки:
+   ![Скрин](screenshots/task2_lock_error.png)
+
+3. Принудительная разблокировка state:
+   ```bash
+   terraform force-unlock f96c5895-4968-6e3e-9006-3eeecc586db1
+   ```
+   ![Скрин](screenshots/task2_force_unlock.png)
+
 ---
 
 ##  Задание 3: Работа с Workspaces (Рабочими пространствами)
