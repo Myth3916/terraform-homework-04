@@ -210,27 +210,7 @@ checkov -d /home/oleg/github/terraform-homework-04/vms --framework terraform
 
 ---
 
-## 🎯 Задание 3: Работа с Workspaces (Рабочими пространствами)
-
-### Что сделано:
-- ✅ Созданы workspaces: `stage` и `prod` (помимо стандартного `default`)
-- ✅ Модифицирован код в `main.tf`: добавлено использование `terraform.workspace` в имени ВМ
-- ✅ Протестирована изоляция state между workspaces
-- ✅ Подтверждено, что ресурсы в разных workspace имеют разные имена и не конфликтуют
-
-### Изменения в коде:
-- `main.tf` — изменен параметр `instance_name` в модуле `marketing_vm`:
-  ```hcl
-  instance_name = "marketing-web-${terraform.workspace}"
-  ```
-
-### Скриншоты:
-- ![Скрин](screenshots/task5_workspace_stage.png) — вывод `terraform plan` в workspace `stage` (имя ВМ: `marketing-web-stage`)
-- ![Скрин](screenshots/task5_workspace_prod.png) — вывод `terraform plan` в workspace `prod` (имя ВМ: `marketing-web-prod`)
-
----
-
-## 🎯 Задание 4: Исправление предупреждений линтеров и Pull Request
+## 🎯 Задание 3: Исправление предупреждений линтеров и Pull Request
 
 ### Что сделано:
 - ✅ Создана ветка `terraform-hotfix` из `terraform-05`
@@ -256,7 +236,7 @@ Passed checks: 8, Failed checks: 0
 
 ---
 
-## 🎯 Задание 5: Валидация переменных
+## 🎯 Задание 4: Валидация переменных
 
 ### Что сделано:
 - ✅ Создан файл `validation.tf` с переменными и валидацией
@@ -282,7 +262,6 @@ Passed checks: 8, Failed checks: 0
    terraform plan -var='ip_list=["192.168.0.1", "1.1.1.1", "1270.0.0.1"]'
    ```
    Результат: ❌ Ошибка: "Один или несколько IP-адресов имеют неверный формат"
-
 
 ### Скриншоты:
 - ![Скрин](screenshots/task5_console_variables.png) — `terraform console`: проверка переменных `var.ip_address` и `var.ip_list`
