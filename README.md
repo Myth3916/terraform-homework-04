@@ -1,6 +1,9 @@
+
 # Домашнее задание: Продвинутые методы работы с Terraform - Шаров Олег
 
 ---
+
+# 🏠 Домашнее задание 4
 
 ## 🎯 Задание 1: Работа с remote-модулями
 
@@ -112,7 +115,6 @@ terraform destroy
 
 ---
 
-
 # 🏠 Домашнее задание 5: Использование Terraform в команде
 
 ## 🎯 Задание 1: Проверка кода линтерами
@@ -171,9 +173,10 @@ checkov -f main.tf providers.tf variables.tf outputs.tf
 checkov -d /home/oleg/github/terraform-homework-04/passwords --framework terraform
 checkov -d /home/oleg/github/terraform-homework-04/vms --framework terraform
 ```
+
 ---
 
-##  Задание 2: Настройка Remote State и блокировок
+## 🎯 Задание 2: Настройка Remote State и блокировок
 
 ### Что сделано:
 - ✅ Создан S3 bucket `oleg-sharov-tfstate-2026` в Yandex Cloud для хранения state.
@@ -207,7 +210,7 @@ checkov -d /home/oleg/github/terraform-homework-04/vms --framework terraform
 
 ---
 
-##  Задание 3: Работа с Workspaces (Рабочими пространствами)
+## 🎯 Задание 3: Работа с Workspaces (Рабочими пространствами)
 
 ### Что сделано:
 - ✅ Созданы workspaces: `stage` и `prod` (помимо стандартного `default`)
@@ -224,5 +227,65 @@ checkov -d /home/oleg/github/terraform-homework-04/vms --framework terraform
 ### Скриншоты:
 - ![Скрин](screenshots/task5_workspace_stage.png) — вывод `terraform plan` в workspace `stage` (имя ВМ: `marketing-web-stage`)
 - ![Скрин](screenshots/task5_workspace_prod.png) — вывод `terraform plan` в workspace `prod` (имя ВМ: `marketing-web-prod`)
+
+---
+
+## 🎯 Задание 4: Исправление предупреждений линтеров и Pull Request
+
+### Что сделано:
+- ✅ Создана ветка `terraform-hotfix` из `terraform-05`
+- ✅ Исправлены все предупреждения tflint и checkov
+- ✅ Заменены ссылки на модули с `ref=main` на commit hash `4d05fab828b1fcae16556a4d167134efca2fccf2`
+- ✅ Удалены неиспользуемые переменные `vm_web_name` и `vm_db_name`
+- ✅ Создан Pull Request: https://github.com/Myth3916/terraform-homework-04/pull/1
+
+### Результаты проверок:
+
+**tflint:**
+```
+0 issue(s) found
+```
+
+**checkov:**
+```
+Passed checks: 8, Failed checks: 0
+```
+
+### Цель задания:
+Научиться работать с Pull Requests для code review в команде. Исправления были внесены в отдельную ветку и оформлены как PR для проверки, без слияния в основную ветку.
+
+---
+
+## 🎯 Задание 5: Валидация переменных
+
+### Что сделано:
+- ✅ Создан файл `validation.tf` с переменными и валидацией
+- ✅ Переменная `ip_address` (string) — проверка корректности IPv4 адреса
+- ✅ Переменная `ip_list` (list(string)) — проверка всех IP в списке
+- ✅ Протестированы сценарии с верными и неверными значениями
+
+### Тесты:
+1. **Успешная валидация** (значения по умолчанию):
+   ```bash
+   terraform plan
+   ```
+   Результат: ✅ Plan успешно выполнен
+
+2. **Неверный IP-адрес** (`1920.1680.0.1`):
+   ```bash
+   terraform plan -var="ip_address=1920.1680.0.1"
+   ```
+   Результат: ❌ Ошибка: "Неверный формат IP-адреса"
+
+3. **Неверный IP в списке** (`1270.0.0.1`):
+   ```bash
+   terraform plan -var='ip_list=["192.168.0.1", "1.1.1.1", "1270.0.0.1"]'
+   ```
+   Результат: ❌ Ошибка: "Один или несколько IP-адресов имеют неверный формат"
+
+### Скриншоты:
+- ![Скрин](screenshots/task4_validation_success.png) — успешный `terraform plan`
+- ![Скрин](screenshots/task4_validation_ip_error.png) — ошибка валидации для `ip_address`
+- ![Скрин](screenshots/task4_validation_list_error.png) — ошибка валидации для `ip_list`
 
 ---
