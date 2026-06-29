@@ -283,9 +283,10 @@ Passed checks: 8, Failed checks: 0
    ```
    Результат: ❌ Ошибка: "Один или несколько IP-адресов имеют неверный формат"
 
+
 ### Скриншоты:
-- ![Скрин](screenshots/task4_validation_success.png) — успешный `terraform plan`
-- ![Скрин](screenshots/task4_validation_ip_error.png) — ошибка валидации для `ip_address`
-- ![Скрин](screenshots/task4_validation_list_error.png) — ошибка валидации для `ip_list`
+- ![Скрин](screenshots/task5_console_variables.png) — `terraform console`: проверка переменных `var.ip_address` и `var.ip_list`
+- ![Скрин](screenshots/task5_validation_ip_error.png) — ошибка валидации для `ip_address=1920.1680.0.1`
+- ![Скрин](screenshots/task5_validation_list_error.png) — ошибка валидации для списка с `1270.0.0.1`
 
 ---
