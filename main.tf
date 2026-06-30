@@ -8,7 +8,7 @@ module "vpc_dev" {
 
 # 2. Remote-модуль для marketing ВМ
 module "marketing_vm" {
-  source         = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=main"
+  source         = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=4d05fab828b1fcae16556a4d167134efca2fccf2"
   env_name       = "marketing"
   network_id     = module.vpc_dev.network_id
   subnet_zones   = [var.default_zone]
@@ -31,7 +31,7 @@ module "marketing_vm" {
 
 # 3. Remote-модуль для analytics ВМ
 module "analytics_vm" {
-  source         = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=main"
+  source         = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=4d05fab828b1fcae16556a4d167134efca2fccf2"
   env_name       = "analytics"
   network_id     = module.vpc_dev.network_id
   subnet_zones   = [var.default_zone]
